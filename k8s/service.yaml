@@ -1,0 +1,17 @@
+apiVersion: v1 # Spécifie la version de l'API Kubernetes utilisée (v1 pour les objets de base).
+kind: Service # Déclare que ce manifeste concerne un objet de type "Service".
+
+metadata: # Contient des métadonnées associées à l'objet, telles que le nom du service.
+  name: app-react # Définit le nom du service.
+
+spec: # Contient la spécification détaillée du service.
+  selector: # Sélectionne les pods auxquels ce service doit rediriger le trafic.
+    app: react
+
+  ports: # Définit les ports auxquels le service doit écouter.
+  - targetPort: 3000
+ # - protocol: "TCP" # Spécifie le protocole utilisé (TCP dans ce cas).
+    port: 3000 # Le numéro de port sur lequel le service écoutera.
+    nodePort: 30008
+
+  type: NodePort # Définit le type de service, dans ce cas, un service NodePort.

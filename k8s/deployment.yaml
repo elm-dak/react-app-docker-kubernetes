@@ -1,0 +1,35 @@
+# Spécifie la version de l'API Kubernetes et le groupe d'API utilisés pour ce manifeste.
+apiVersion: apps/v1
+# Déclare que ce manifeste concerne un objet de type "Deployment".
+kind: Deployment
+# Contient des métadonnées associées à l'objet, telles que le nom du déploiement.
+metadata:
+  # Définit le nom du déploiement.
+  name: app-react
+# Contient la spécification détaillée du déploiement.
+spec:
+  # Définit comment les pods gérés par ce déploiement seront sélectionnés.
+  selector:
+    matchLabels:
+      app: react
+    # Les pods doivent avoir cette étiquette pour être inclus dans la sélection.
+  # Spécifie le nombre de répliques (pods) souhaité pour ce déploiement.
+  replicas: 2
+  # Définit la stratégie de mise à jour du déploiement.
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      # Définit le nombre maximal de pods pouvant être indisponibles pendant une mise à jour.
+      maxUnavailable: 25%
+    # Indique que la mise à jour doit se faire en mode "rolling update".
+    type: RollingUpdate
+  # Définit le modèle pour les pods gérés par ce déploiement.
+  template:
+    metadata:
+      labels:
+        app: react
+    # Définit les spécifications des conteneurs à exécuter dans les pods.
+    spec:
+      containers:
+      - name: app-nginx # Nom du conteneur.
+        image: elmdak1/apptodolist # Image Docker utilisée par le conteneur.
